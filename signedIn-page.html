@@ -1,0 +1,556 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link rel="stylesheet" href="signedIn-page.css">
+  <style>
+    @import url('https://fonts.googleapis.com/css2?family=Barlow+Semi+Condensed:ital,wght@0,300;0,400;0,500;0,600;0,700;&display=swap');
+  </style>
+  <title>Dashboard</title>
+</head>
+<body>
+  <nav class="nav-bar">
+    <br>
+    <div class="container-nav">
+      <div class="dropdown">
+        <h5><a class="list-a" href="#">ACCOUNT</a></h5>
+        <div class="dropdown-content">
+          <br>
+          <a href="" id="logOut" onclick="logOutUser()">>>>Log Out</a> <br>
+          <a href="#" id="resetPassword">>>>Reset Password</a> <br>
+        </div>
+      </div>   
+      <h5><a class="list-a" href="">ABOUT US</a></h5>
+      <h5><a class="list-a" href="">CUSTOMER SERVICE</a></h5>
+      <img class="img-1" src="./myImages/my_bank-logo.png" 
+      alt="" width="70px" height="70px">
+      <br>
+      <button id="signOut" class="logout-btn" onclick="logoutUser()">Log Out</button>
+      <!-- Log Out Confirmation Modal -->
+      <div id="logoutModal" class="modal hidden">
+        <div class="modal-content">
+          <h3>Confirm Log Out</h3>
+          <p>Are you sure you want to log out?</p>
+          <button id="confirmLogout" class="modal-btn">Yes</button>
+          <button id="cancelLogout" class="modal-btn">No</button>
+        </div>
+      </div>
+
+    </div>
+  </nav>
+    
+  <div id="spinner" class="spinner hidden">
+    <div class="lds-ring"><div></div><div></div><div></div><div></div></div>
+  </div>
+    
+  <div id="customAlert" class="custom-alert">
+    <div class="custom-alert-content">
+      <span id="alertMessage" class="alert-message"></span>
+      <button id="closeAlert" class="close-alert-btn">OK</button>
+    </div>
+  </div>
+  <div class="gen-container-for-body">
+    <div class="gen-container">
+      <h1 id="displayLogOut"></h1>
+      <div id="displayProfile" class="profile-container">
+        <img class="img" style="border-radius: 14px;" id="profilePic" src="" 
+        alt="Profile Picture">
+        <input class="profile-input" type="file" id="editProfilePic" style="display: none; margin-left: 20px;">
+        <h2> <span id="username"></span></h2>
+        <input class="profile-input" type="text" id="editUsername" placeholder="Edit Username" 
+        style="display: none; margin-left: 20px;">
+        <h3><span id="email"></span></h3>
+        <h3> <span id="date"></span></h3>
+        <h3 id="accountNumber"></h3>
+        <h3 id="balance"></h3>
+        <h3 id="transferPin"></h3>
+      </div>
+    </div>  
+    <!-- Notification element that will be shown when there's a connection issue -->
+    <div id="networkStatus" style="display: none; color: white;
+     background-color: red; padding: 10px; text-align: center;">
+      You are currently offline. Please check your internet connection.
+    </div>
+
+
+    <div class="gen-container-2">
+      <div class="icon-div">
+        <div id="tf" class="icon-container">
+          <img src="./myImages/transfer-money-_icon-rbg.png" 
+          width="90px" height="90px" id="transferIcon">
+          <br>
+          <u class="icon-text">TRANFER MONEY</u>
+          <div class="transfer-form" id="transferForm" style="display: none;">
+            <h2>Make a Payment</h2>
+            <div class="input-group">
+              <label for="recipientAccount">Account Number</label>
+              <input type="text" id="recipientAccount" placeholder="Enter account number" required>
+            </div>
+            <div class="input-group">
+              <label for="transferAmount">Amount</label>
+              <input type="text" id="transferAmount" placeholder="Enter amount" required>
+            </div>
+            <div class="input-group">
+              <label for="transferPin">Transfer PIN</label>
+              <input type="password" id="transferPin" placeholder="Enter transfer PIN" required>
+            </div>
+            <button id="submitTransfer" class="btn-transfer">Send Payment</button>
+          </div>
+        </div>
+        <br> 
+        <div id="saving" class="icon-container">
+          <img src="./myImages/savings_icon-rbg.png" width="90px" height="90px">
+          <br>
+          <u class="icon-text">MOBILE SAVINGS</u>
+        </div>
+        <br>
+        <div id="pw" class="icon-container">
+          <a href="#" id="resetPasswordLink">
+            <img src="./myImages/reset_password-rbg.png" width="90px" height="90px">
+            <br>
+            <u class="icon-text">RESET <br> PASSWORD</u>
+          </a>
+        </div>
+      </div>
+      
+      <div class="icon-div">
+        <div id="fund" class="icon-container">
+          <img src="./myImages/funding_icon-rbg.png" width="90px" height="90px">
+          <br>
+          <u class="icon-text">FUNDING</u>
+          <div class="withdraw-form" id="withdrawForm" style="display: none;">
+            <h2>Withdraw Funds</h2>
+            <div class="input-group">
+                <label for="withdrawAmount">Amount</label>
+                <input type="text" id="withdrawAmount" placeholder="Enter amount" required>
+            </div>
+            <div class="input-group">
+                <label for="withdrawPin">PIN</label>
+                <input type="password" id="withdrawPin" placeholder="Enter PIN" required>
+            </div>
+            <button id="submitWithdraw" class="btn-withdraw">Withdraw</button>
+          </div>
+        </div>
+        
+        <br>
+        <div id="buyData" class="icon-container">
+          <img src="./myImages/data_bundle_icon-rbg.png" width="90px" height="90px">
+          <br>
+          <u class="icon-text">BUY DATA</u>
+        </div>
+        <br>
+        <div class="icon-container">
+          <img src="./myImages/balance-check-rbg.png" width="90px" height="90px">
+          <br>
+          <u class="icon-text">CHECK <br> BALANCE</u>
+        </div>
+      </div>
+      <div class="icon-div">
+        <div id="tHist" class="icon-container">
+          <a href="#" id="tHistory">
+            <img src="./myImages/transactions-h-rbg.png" width="90px" height="90px">
+            <br>
+            <u class="icon-text">TRANSACTION <br> HISTORY</u>
+          </a>
+        </div>
+        <br>
+        <div class="icon-container">
+          <img src="./myImages/airtime-purchase-rbg.png" width="90px" height="90px">
+          <br>
+          <u class="icon-text">BUY AIRTIME</u>
+        </div>
+        <br>
+        <div class="icon-container">
+          <img src="./myImages/acc-upgrade-rbg.png" width="90px" height="90px">
+          <br>
+          <u class="icon-text">UPGRADE ACCOUNT</u>
+        </div>
+      </div>
+    </div>
+     <br>
+  </div>
+  
+  <nav class="last-nav">
+    <div class="last-div"> 
+      <img class="nav-img-2" src="./myImages/my_bank-logo.png">
+      <br>
+      <u class="powered"> Powered By: Leadson Bank Digital Service LTD. </u>
+    </div>
+    <div class="back-to-top">
+      <img id="scrollTopBtn" class="scroll-to-top"
+      src="./myImages/arrow icon rbg.png" height="30px">
+    </div>
+  </nav> 
+
+  <script type="module"> 
+
+    import { initializeApp } from "https://www.gstatic.com/firebasejs/10.14.1/firebase-app.js";
+    import { getAuth, onAuthStateChanged, signOut } from "https://www.gstatic.com/firebasejs/10.14.1/firebase-auth.js";
+    import { getDatabase, ref, onValue, get, update, runTransaction, push } from "https://www.gstatic.com/firebasejs/10.14.1/firebase-database.js";
+
+    const firebaseConfig = {
+    apiKey: "AIzaSyC2UDesaxb8IqKRgS6GGcBhdBhfLNhSbxo",
+    authDomain: "leadson-bank-app.firebaseapp.com",
+    projectId: "leadson-bank-app",
+    storageBucket: "leadson-bank-app.appspot.com",
+    messagingSenderId: "1011064039007",
+    appId: "1:1011064039007:web:59acca967e30b39c1b9dea"
+    };
+
+    const app = initializeApp(firebaseConfig);
+    const auth = getAuth();
+    const database = getDatabase();
+
+    document.addEventListener('DOMContentLoaded', () => {
+      const transferForm = document.getElementById('transferForm');
+      const transferIcon = document.getElementById('transferIcon');
+
+      function showSpinner() {
+        document.getElementById('spinner').classList.remove('hidden');
+      }
+      function hideSpinner() {
+        document.getElementById('spinner').classList.add('hidden');
+      }
+      async function loadData(){
+        showSpinner();
+        await new Promise(resolve => setTimeout(resolve, 3000)); 
+        hideSpinner();
+      }
+      
+      document.getElementById('tHistory').addEventListener('click', (e) => {
+        e.preventDefault(); 
+        showSpinner();  
+        setTimeout(() => {
+          hideSpinner(); 
+          window.location.href = './transactions.html';  
+        }, 3000); 
+      });
+
+      if (!localStorage.getItem('customAlert')) {
+        localStorage.setItem('customAlert', 'true');
+        function showCustomAlert(message) {
+          showCustomAlert("Welcome, " + data.username);
+          document.getElementById('alertMessage').innerText = message;
+          document.getElementById('customAlert').style.display = 'flex';   
+        }
+      
+      }else{
+        document.getElementById('closeAlert').addEventListener('click', function() {
+          document.getElementById('customAlert').style.display = 'none';
+      })
+      };
+      onAuthStateChanged(auth, (user) => {
+        if (user) {
+          console.log("User logged in: ", user);
+          showSpinner();
+          const uid = user.uid;
+          const userRef = ref(database, `users/${uid}`);
+          onValue(userRef, (snapshot) => { 
+            if (snapshot.exists()) {
+              hideSpinner();
+              const data = snapshot.val();
+              document.getElementById("username").innerText = data.username;
+              document.getElementById("email").innerText = data.email;
+              document.getElementById("date").innerText = 'Member Since: ' + data.date;
+              document.getElementById("profilePic").src = data.profilePicURL;
+              document.getElementById("balance").innerText = 'Balance: $' + data.balance.toFixed(2);
+              document.getElementById("accountNumber").innerText = "Account Number: " + data.accountNumber;
+              document.getElementById("transferPin").innerText = 'Transfer Pin: ' + data.transferPin;
+             
+            }else {
+              hideSpinner()
+              alert("No User Data Found");
+            }
+          });
+        }else {
+          hideSpinner()
+          alert("Logged Out, Please Sign In Again");
+        }
+      });
+      // Get elements
+      const logoutModal = document.getElementById('logoutModal');
+      const confirmLogout = document.getElementById('confirmLogout');
+      const cancelLogout = document.getElementById('cancelLogout');
+      const logOutButton = document.getElementById('logOut');
+      const signOutButton = document.getElementById('signOut');
+
+      logOutButton.addEventListener('click', (e) => {
+        e.preventDefault(); 
+        logoutModal.classList.remove('hidden'); 
+      });
+      confirmLogout.addEventListener('click', () => {
+        showSpinner(); 
+        signOut(auth)
+        .then(() => {
+          hideSpinner();
+          alert("Sign out successful");
+          window.location.href = 'signIn.html'; 
+        })
+        .catch((error) => {
+          hideSpinner();
+          console.log("Sign out failed:", error);
+          alert("Sign out failed:");
+        });
+      });
+      cancelLogout.addEventListener('click', () => {
+        logoutModal.classList.add('hidden');
+      });
+
+      signOutButton.addEventListener('click', (e) => {
+        e.preventDefault();
+        logoutModal.classList.remove('hidden'); 
+      });
+      confirmLogout.addEventListener('click', () => {
+        showSpinner(); 
+        signOut(auth)
+        .then(() => {
+          hideSpinner();
+          // alert("Sign out successful");
+          window.location.href = 'signIn.html';
+        })
+        .catch((error) => {
+          hideSpinner();
+          // alert("Sign out failed:");
+        });
+      });
+      cancelLogout.addEventListener('click', () => {
+        logoutModal.classList.add('hidden'); 
+      });
+
+      transferIcon.addEventListener('click', () => {
+        transferForm.style.display = (transferForm.style.display === 'none'
+        || transferForm.style.display === '') ? 'block' : 'none';
+      });
+      document.getElementById('submitTransfer').addEventListener('click', (e) => {  
+        e.preventDefault();
+        showSpinner();
+        const recipientAccount = document.getElementById('recipientAccount').value.trim();
+        let transferAmount = document.getElementById('transferAmount').value.replace(/,/g, '');
+        transferAmount = parseFloat(transferAmount);
+        const transferPin = document.getElementById('transferPin').value.trim();
+
+        if (isNaN(transferAmount) || transferAmount <= 0) {
+          hideSpinner();
+        alert("Please enter a valid transfer amount.");
+        return;
+        }
+        if (!recipientAccount || !transferPin) {
+        alert("Please fill in all required fields.");
+        return;
+        }
+      
+        const fundingIcon = document.getElementById('fundingIcon');
+        const withdrawForm = document.getElementById('withdrawForm');
+        fundingIcon.addEventListener('click', () => {
+          withdrawForm.style.display = (withdrawForm.style.display === 'none' 
+          || withdrawForm.style.display === '') ? 'block' : 'none';
+        });
+        
+        const currentUserUid = auth.currentUser.uid;
+        const senderRef = ref(database, `users/${currentUserUid}`);
+
+        get(senderRef).then((snapshot) => {
+          if (snapshot.exists()) {
+          const senderData = snapshot.val();
+
+            if (senderData.transferPin !== transferPin) {
+              hideSpinner();
+            alert("Invalid transfer PIN.");
+            return;
+            }
+            if (senderData.balance < transferAmount) {
+            alert("Insufficient funds.");
+            return;
+            }
+            const usersRef = ref(database, 'users');
+            get(usersRef).then((snapshot) => {
+            let recipientUid = null;
+
+            snapshot.forEach((userSnapshot) => {
+              if (userSnapshot.val().accountNumber === recipientAccount) {
+                  recipientUid = userSnapshot.key;
+              }
+            });
+            if (!recipientUid) {
+              alert("Recipient account not found.");
+              return;
+            }
+            const recipientRef = ref(database, `users/${recipientUid}/balance`);
+            const senderBalanceRef = ref(database, `users/${currentUserUid}/balance`);
+            runTransaction(senderBalanceRef, (currentBalance) => {
+              if (currentBalance >= transferAmount) {
+                return currentBalance - transferAmount;
+              } else {
+                alert("Insufficient funds.");
+                throw new Error("Insufficient funds");
+              }
+            }).then(() => {
+              return runTransaction(recipientRef, (recipientBalance) => {
+                return recipientBalance + transferAmount;
+              });
+            }).then(() => {
+            const transactionRef = ref(database, `transactions`);
+            const transactionKey = push(transactionRef).key;
+            const transactionData = {
+              sender: currentUserUid,
+              recipient: recipientUid,
+              amount: transferAmount,
+              date: new Date().toLocaleString(),
+              status: "completed"
+            };
+
+            const updates = {};
+            updates[`transactions/${transactionKey}`] = transactionData;
+            updates[`users/${currentUserUid}/transactions/${transactionKey}`] = transactionData;
+            updates[`users/${recipientUid}/transactions/${transactionKey}`] = transactionData;
+            
+              return update(ref(database), updates);
+            }).then(() => {
+              hideSpinner();
+              alert("Payment successful!");
+              document.getElementById('transferForm').reset();
+            }).catch((error) => {
+              hideSpinner();
+              console.error("Error processing payment: ", error);
+              alert("Error processing payment.");
+            });
+        });
+        } else {
+          hideSpinner();
+          console.log("Sender data does not exist.");
+        }
+        }).catch((error) => {
+          console.error("Error fetching sender data: ", error);
+        });
+      });
+    });
+
+    let scrollTopBtn = document.getElementById("scrollTopBtn");
+    window.onscroll = function() {
+      const totalHeight = document.documentElement.scrollHeight;
+      const currentScrollPos = window.innerHeight + window.scrollY;
+      if (totalHeight - currentScrollPos < 260) {
+          scrollTopBtn.style.display = "block";
+      } else {
+        scrollTopBtn.style.display = "none";
+      }
+    };
+    scrollTopBtn.onclick = function(e) {
+      e.preventDefault();
+      window.scrollTo({ top: 0, behavior: 'smooth' });
+    };
+
+    document.getElementById("resetPasswordLink").addEventListener("click", function (event) {
+      event.preventDefault();
+      // showSpinner();
+      setTimeout(function () {
+        window.location.href = "./Account-Management.html"; 
+      }, 2000); 
+    });
+
+    function updateNetworkStatus() {
+      const networkStatus = document.getElementById('networkStatus');
+      if (navigator.onLine) {
+        networkStatus.style.display = 'none';
+      } else {
+        networkStatus.style.display = 'block';
+      }
+    }
+    updateNetworkStatus();
+    
+    // document.getElementById('saving').addEventListener('click', function (event) {
+    //   if (!navigator.onLine) {
+    //     event.preventDefault();
+    //     networkStatus.style.display = 'none';
+    //     // alert('You are offline. Please connect to the internet to complete the sign-up process.');
+    //   } else {
+    //     networkStatus.style.display = 'block';
+    //   }
+    // });
+    // document.getElementById('pw').addEventListener('click', function (event) {
+    //   if (!navigator.onLine) {
+    //     event.preventDefault();
+    //     networkStatus.style.display = 'none';
+    //     // alert('You are offline. Please connect to the internet to complete the sign-in process.');
+    //   } else {
+    //     networkStatus.style.display = 'block';
+    //   }
+    // });
+    // document.getElementById('tf').addEventListener('click', function (event) {
+    //   if (!navigator.onLine) {
+    //     event.preventDefault();
+    //     networkStatus.style.display = 'none';
+    //     // alert('You are offline. Please connect to the internet to complete the sign-in process.');
+    //   } else {
+    //     networkStatus.style.display = 'block';
+    //   }
+    // });
+    // document.getElementById('fund').addEventListener('click', function (event) {
+    //   if (!navigator.onLine) {
+    //     event.preventDefault();
+    //     networkStatus.style.display = 'none';
+    //     // alert('You are offline. Please connect to the internet to complete the sign-in process.');
+    //   } else {
+    //     networkStatus.style.display = 'block';
+    //   }
+    // });
+    // document.getElementById('buyData').addEventListener('click', function (event) {
+    //   if (!navigator.onLine) {
+    //     event.preventDefault();
+    //     networkStatus.style.display = 'none';
+    //     // alert('You are offline. Please connect to the internet to complete the sign-in process.');
+    //   } else {
+    //     networkStatus.style.display = 'block';
+    //   }
+    // });
+    // document.getElementById('tHist').addEventListener('click', function (event) {
+    //   if (!navigator.onLine) {
+    //     event.preventDefault();
+    //     networkStatus.style.display = 'none';
+    //     // alert('You are offline. Please connect to the internet to complete the sign-in process.');
+    //   } else {
+    //     networkStatus.style.display = 'block';
+    //   }
+    // });
+
+    // document.getElementById('signOut').addEventListener('click', function (event) {
+    //   if (!navigator.onLine) {
+    //     event.preventDefault();
+    //     networkStatus.style.display = 'none';
+    //     // alert('You are offline. Please connect to the internet to complete the sign-in process.');
+    //   } else {
+    //     networkStatus.style.display = 'block';
+    //   }
+    // });
+    // document.getElementById('resetPassword').addEventListener('click', function (event) {
+    //   if (!navigator.onLine) {
+    //     event.preventDefault();
+    //     networkStatus.style.display = 'none';
+    //     // alert('You are offline. Please connect to the internet to complete the sign-in process.');
+    //   } else {
+    //     networkStatus.style.display = 'block';
+    //   }
+    // });
+    // document.getElementById('logOut').addEventListener('click', function (event) {
+    //   if (!navigator.onLine) {
+    //     event.preventDefault();
+    //     networkStatus.style.display = 'none';
+    //     // alert('You are offline. Please connect to the internet to complete the sign-in process.');
+    //   } else {
+    //     networkStatus.style.display = 'block';
+    //   }
+    // });
+
+  </script>
+<script src="./signedIn-page.js"></script>  
+</body>
+</html>
+
+
+
+
+
+
+
+

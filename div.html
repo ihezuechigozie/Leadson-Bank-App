@@ -1,0 +1,96 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <div class="icon-container">
+        <i class="fa fa-user"></i> <!-- Replace 'fa-user' with any icon class you want -->
+    </div>
+<style>
+        .icon-container {
+    width: 140px;
+    height: 140px; /* You can adjust this if needed */
+    background-color: white;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2); /* Outside shadow */
+    border-radius: 10px; /* Optional for rounded corners */
+}
+
+.icon-container i {
+    font-size: 50px; /* Adjust icon size as needed */
+    color: #333; /* Change this to the desired icon color */
+}
+ /* .marquee-div {
+    white-space: nowrap;
+    overflow: hidden;
+    box-sizing: border-box;
+  }
+  
+  .marquee-text {
+    display: inline-block;
+    animation: marquee 14s linear infinite;
+  }
+  
+   @keyframes marquee {
+    0% { transform: translateX(100%); }
+    100% { transform: translateX(-150%); }
+  }  */
+</style>
+
+
+<style>
+    .mobile-image{
+    clip-path: polygon(71% 0, 100% 50%, 71% 100%, 0 100%, 35% 48%, 0 0);
+    /* border-radius: 50%; */
+    height: 180px;
+    width: 180px;
+    border-radius: 6px;
+    /* box-shadow: 1px 1px 3px 1px; */
+    transform: rotateX(20deg); 
+    margin-top: 20px;
+    
+}
+
+.image-text{
+    color: #ffff;
+    font-size: 16px;
+    font-weight: 700;
+    text-align: center;
+    letter-spacing: 2px;
+    transform: rotateX(30deg);
+    transform: rotateX(10deg);
+    box-shadow: inset 0px 0px 2px -0.1px rgba(255, 255, 255, 0.391);
+    padding: 5px;
+  
+} 
+.image-text:hover{
+    transform: scale(1.1);
+    transition: 0.5s; 
+    box-shadow: inset 0px 0px 8px -0.1px rgba(229, 169, 122, 0.44);
+    cursor: pointer;
+    background-color: rgba(46, 46, 46, 0.12);
+}
+.image-text-1:hover{
+    margin-left: 0px;
+    animation: moveToCenter2Slowly .8s ease infinite ; 
+    animation-delay: 0.01s;  
+    cursor: pointer;
+}
+@keyframes moveToCenter2Slowly {
+    0% {
+      transform: translateX(0); 
+    }
+    100% {
+      transform: translateX(calc(1vw + 2px)); 
+    }
+  }
+
+
+</style>
+</body>
+</html>

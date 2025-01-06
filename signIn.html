@@ -1,0 +1,559 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Sign In</title>
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Barlow+Semi+Condensed:ital,wght@0,300;0,400;0,500;0,600;0,700;&display=swap');
+        </style>
+</head>
+<body>
+    <nav class="second-nav">
+        <div class="banklogo-image">
+            <div class="bank-logo">
+                <a id="backhomeArrow" class="backhome-arrow" href="./signedIn-page.html">
+                    <img src="./myImages/backhome-arrow icon rbg.png"
+                    alt="" width="40px" height="40px">
+                  </a>
+                <u class="leadson">LEADSON BANK</u>
+                <img class="img-1" src="./myImages/my_bank-logo.png" alt="" width="85px" height="85px">
+            </div>
+            <div class="search-bar">
+                <p class="search">TRANSLATE</p>
+                <a href="">
+                    <img class="logo" src="./myImages/search_icon.png" width="20px" height="20px">
+                </a>
+            </div>
+        </div>
+        </nav>
+    <!-- Notification element that will be shown when there's a connection issue -->
+    <div id="networkStatus" style="display: none; color: white;
+      background-color: red; padding: 10px; text-align: center;">
+      You are currently offline. Please check your internet connection.
+    </div>
+    <div id="spinner" class="spinner hidden">
+      <div class="lds-ring"><div></div><div></div><div></div><div></div></div>
+    </div>
+      
+    <div class="gen-div">
+        <br><br><br><br><br>
+        <div class="signup-container">
+            <h1>Account Sign In</h1>
+            <div class="signup-form">
+                <div class="input-group">
+                    <label for="email">Email</label>
+                    <input type="email" id="email" name="email" required>
+                </div>
+                <div class="input-group">
+                    <label for="password">Password</label>
+                    <input type="password" id="password" name="password" required>
+                </div>
+                <br>
+            </div>
+            <button id="loginButton" class="btn-signup">Log In</button>
+            <p class="login-link">
+                <a id="signUp" href="#">Sign Up!</a> |
+                <a id="forgottenPassword" href="#">Forgotten Password?</a> |
+                <a id="changePassword" href="#">Change Password</a>
+            </p>
+        </div>
+        <div id="changePasswordForm" style="display: none;">
+            <input type="password" id="currentPassword" placeholder="Current Password">
+            <input type="password" id="newPassword" placeholder="New Password">
+            <input type="password" id="confirmNewPassword" placeholder="Confirm New Password">
+            <button id="submitChangePassword">Change Password</button>
+        </div>
+
+    </div>
+
+    <nav class="last-nav">
+        <div class="nav-div">
+            <div>
+                <img class="nav-img-2" src="./myImages/my_bank-logo.png">
+            </div>
+            <u class="powered">Powered By: Leadson Bank Digital Service LTD.</u>
+        </div>
+    </nav>
+
+    <script type="module">
+        // Import the necessary Firebase SDKs
+        import { initializeApp } from "https://www.gstatic.com/firebasejs/10.14.1/firebase-app.js";
+        import { getAuth, updatePassword, signInWithEmailAndPassword } from "https://www.gstatic.com/firebasejs/10.14.1/firebase-auth.js";
+        import { getDatabase, ref, get } from "https://www.gstatic.com/firebasejs/10.14.1/firebase-database.js";
+
+        // Firebase configuration
+        const firebaseConfig = {
+            apiKey: "AIzaSyC2UDesaxb8IqKRgS6GGcBhdBhfLNhSbxo",
+            authDomain: "leadson-bank-app.firebaseapp.com",
+            projectId: "leadson-bank-app",
+            storageBucket: "leadson-bank-app.appspot.com",
+            messagingSenderId: "1011064039007",
+            appId: "1:1011064039007:web:59acca967e30b39c1b9dea"
+        };
+
+        // Initialize Firebase
+        const app = initializeApp(firebaseConfig);
+        const auth = getAuth(app);
+        const database = getDatabase(app);
+        const changePasswordLink = document.getElementById('changePassword');
+        const changePasswordForm = document.getElementById('changePasswordForm');
+        const submitChangePassword = document.getElementById('submitChangePassword');
+
+        // Show form
+        changePasswordLink.addEventListener('click', () => {
+        changePasswordForm.style.display = 'block';
+        });
+
+        // Submit password change
+        submitChangePassword.addEventListener('click', async () => {
+        const currentPassword = document.getElementById('currentPassword').value;
+        const newPassword = document.getElementById('newPassword').value;
+        const confirmNewPassword = document.getElementById('confirmNewPassword').value;
+
+        if (newPassword !== confirmNewPassword) {
+            alert("New passwords don't match.");
+            return;
+        }
+
+        const user = auth.currentUser;
+        if (user) {
+            try {
+                // Re-authenticate the user
+                const userCred = await signInWithEmailAndPassword(auth, user.email, currentPassword);
+                await updatePassword(userCred.user, newPassword);
+                alert("Password changed successfully!");
+            } catch (error) {
+                console.error("Error changing password:", error);
+                alert("Failed to change password.");
+            }
+        } else {
+            alert("No user is signed in.");
+        }
+       });
+
+        // Show spinner
+        function showSpinner() {
+        document.getElementById('spinner').classList.remove('hidden');
+        }
+
+        // Hide spinner
+        function hideSpinner() {
+        document.getElementById('spinner').classList.add('hidden');
+        }
+
+        // Example of usage during an async operation
+        async function loadData() {
+        showSpinner();
+        
+        // Simulate loading or fetching data
+        await new Promise(resolve => setTimeout(resolve, 2000)); 
+
+        hideSpinner();
+        }
+
+        document.getElementById("signUp").addEventListener("click", function (event) {
+            event.preventDefault();
+            showSpinner();
+            setTimeout(function () {
+                window.location.href = "./signUp.html"; 
+            }, 2000); 
+        });
+        
+        document.getElementById('loginButton').addEventListener('click', (event) => {
+            event.preventDefault();
+            showSpinner();
+
+            // Get email and password from input fields
+            const email = document.getElementById('email').value;
+            const password = document.getElementById('password').value;
+
+            // Sign in using Firebase Authentication
+            signInWithEmailAndPassword(auth, email, password)
+                .then((userCredential) => {
+                    const user = userCredential.user;
+                    const uid = user.uid;
+
+                    // Retrieve user data from Firebase Realtime Database
+                    const userRef = ref(database, 'users/' + uid);
+                    get(userRef).then((snapshot) => {
+                        if (snapshot.exists()) {
+                            const userData = snapshot.val();
+                            console.log("User Data:", userData);
+                            window.location.href = 'signedIn-page.html';
+                        } else {
+                            console.log("No user data available");
+                        }
+                        hideSpinner();
+                    }).catch((error) => {
+                        console.error("Error fetching user data:", error);
+                        hideSpinner();
+                    });
+                })
+                .catch((error) => {
+                    hideSpinner();
+                    const errorCode = error.code;
+                    const errorMessage = error.message;
+                    console.error("Login failed:", errorCode, errorMessage);
+                    alert("Login failed: " + errorMessage);
+                });
+        });
+
+        document.getElementById('backhomeArrow').addEventListener('click', (e) => {
+        e.preventDefault(); 
+        showSpinner();  
+        setTimeout(() => {
+            hideSpinner(); 
+            window.location.href = './signUp.html';  
+        }, 3000);  
+        });
+
+        function updateNetworkStatus() {
+      const networkStatus = document.getElementById('networkStatus');
+      if (navigator.onLine) {
+        networkStatus.style.display = 'none';
+      } else {
+        networkStatus.style.display = 'block';
+      }
+    }
+
+    updateNetworkStatus();
+    document.getElementById('loginButton').addEventListener('click', function (event) {
+      if (!navigator.onLine) {
+        event.preventDefault();
+        networkStatus.style.display = 'none';
+        // alert('You are offline. Please connect to the internet to complete the sign-up process.');
+      } else {
+        networkStatus.style.display = 'block';
+      }
+    });
+    document.getElementById('signUp').addEventListener('click', function (event) {
+      if (!navigator.onLine) {
+        event.preventDefault();
+        networkStatus.style.display = 'none';
+        // alert('You are offline. Please connect to the internet to complete the sign-in process.');
+      } else {
+        networkStatus.style.display = 'block';
+      }
+    });
+    document.getElementById('forgottenPassword').addEventListener('click', function (event) {
+      if (!navigator.onLine) {
+        event.preventDefault();
+        networkStatus.style.display = 'none';
+        // alert('You are offline. Please connect to the internet to complete the sign-in process.');
+      } else {
+        networkStatus.style.display = 'block';
+      }
+    });
+    document.getElementById('changePassword').addEventListener('click', function (event) {
+      if (!navigator.onLine) {
+        event.preventDefault();
+        networkStatus.style.display = 'none';
+        // alert('You are offline. Please connect to the internet to complete the sign-in process.');
+      } else {
+        networkStatus.style.display = 'block';
+      }
+    });
+
+
+    </script>
+
+    <style>
+
+        body{
+        margin: 0;
+        padding: 0;
+        }
+        .gen-div{
+        background: linear-gradient(#298ee0, #200f63ce);
+        height: 500px;
+        width: 100%;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        }
+
+        .second-nav{
+            background-color: rgba(23, 12, 12, 0.115);
+            height: auto;
+        }
+        .banklogo-image{
+            /* border: 1px solid; */
+            width: 95%;
+            display: flex;
+            margin-left: 20px;
+            justify-content: space-between;
+        }
+        .bank-logo{
+            /* border: 1px solid; */
+            gap: 4px;
+            display: flex;
+            justify-content: center;
+            font-family: "Anton", sans-serif;
+            font-style: normal;
+            font-weight: 500;
+            font-size: 18px;
+            margin-top: 0px;
+            color: rgba(34, 101, 93, 0.899);
+        }
+        .leadson{
+            text-decoration: none;
+            margin-top: 16px;
+        }
+        .logo{
+        margin-top: 17px;
+        }
+        .img-1{
+            margin-top: 0px;
+        }
+        .backhome-arrow{
+        margin-top: 6px;
+        width: 40px;
+        height: 40px;
+        }
+        .search-bar{
+            display: flex;
+            justify-content: space-around;
+            gap: 6px;
+            font-family: "Anton", sans-serif;
+            font-weight: 100;
+            font-style: normal;
+            font-size: 13px;
+            color: rgba(34, 101, 93, 0.899);
+            text-decoration: none;
+            cursor: pointer;
+            margin-top: 6px;
+        }
+        .search{
+            margin-top: 18px;
+        }
+
+        #networkStatus {
+            position: fixed;
+            top: 0;
+            width: 100%;
+            z-index: 1000;
+        }  
+        .spinner {
+            position: fixed;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            z-index: 9999;
+        }
+
+        .hidden {
+         display: none;
+        }
+
+        .lds-ring {
+            display: inline-block;
+            position: relative;
+            width: 80px;
+            height: 80px;
+        }
+        .lds-ring div {
+        box-sizing: border-box;
+        display: block;
+        position: absolute;
+        width: 64px;
+        height: 64px;
+        margin: 8px;
+        border: 8px solid #733cabee;
+        border-radius: 50%;
+        animation: lds-ring 1.2s cubic-bezier(0.5, 0, 0.5, 1) infinite;
+        border-color: #6438aa transparent transparent transparent;
+        }
+        .lds-ring div:nth-child(1) {
+        animation-delay: -0.45s;
+        }
+        .lds-ring div:nth-child(2) {
+        animation-delay: -0.3s;
+        }
+        .lds-ring div:nth-child(3) {
+        animation-delay: -0.15s;
+        }
+        @keyframes lds-ring {
+        0% {
+            transform: rotate(0deg);
+        }
+        100% {
+            transform: rotate(360deg);
+        }
+        }
+
+        
+        .signup-container {
+        background:url(./myImages/my\ bank-logo-4.png);
+        background-position: center;
+        background-repeat: no-repeat;
+        background-size: cover;
+        background-color: #fff;
+        width: 45%;
+        height: auto;
+        padding: 4px;
+        border-radius: 8px;
+        box-shadow: 0 10px 25px rgba(162, 55, 55, 0.1);
+
+        }
+
+        .signup-form{
+        margin-left: 15%;
+        width: 100%;
+
+        /* display: flex;
+        justify-content: space-around; */
+        }
+        h1 {
+        text-align: center;
+        color: #000000;
+        font-family: sans-serif;
+        font-style: normal;
+        font-weight: 600;
+        
+            
+        }
+
+        .input-group label {
+            display: block;
+            margin-bottom: 3px;
+            color: #0f112a;
+            font-family: sans-serif;
+            font-style: normal;
+            font-weight: 600;
+            font-size: 14px;
+        }
+
+        .input-group input {
+            width: 70%;
+            padding: 6px;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+            font-size: 16px;
+            font-family: sans-serif;
+            font-style: normal;
+            font-weight: 400;
+            font-size: 14px;
+        }
+
+        .input-group input:focus {
+            border-color: #110f10ce;
+            outline: none;
+            font-family: sans-serif;
+            font-style: normal;
+            font-weight: 600;
+            font-size: 14px;
+        }
+
+        .btn-signup {
+        width: 86%;
+        padding: 10px;
+        background-color: #6B73FF;
+        border: none;
+        border-radius: 5px;
+        font-size: 18px;
+        color: #fff;
+        cursor: pointer;
+        transition: background-color 0.3s;
+        font-family: sans-serif;
+        font-style: normal;
+        font-size: 15px;
+        font-weight: 600;
+        margin-left: 7%;
+        }
+
+        .btn-signup:hover {
+        background-color: #7279dd;
+        }
+
+        .login-link {
+        text-align: center;
+            margin-top: 20px;
+            color: #000000;
+            font-family: sans-serif;
+            font-style: normal;
+            font-weight: 600;
+            font-size: 14px;
+            text-decoration: none;
+            margin-left: 9%;
+        }
+
+        .login-link a  {
+        color: #000000;
+        text-decoration: none;    
+        }
+
+        .login-link a:hover {
+        text-decoration: underline 1px solid;
+        color: #6B73FF;
+        text-decoration: underline 0.1px;
+        text-underline-offset: 4px;
+        }
+        .last-nav{
+        background-color: rgba(203, 203, 203, 0.866);
+        width: 100%;
+        height: auto;
+        font-family: sans-serif;
+        
+        }
+        .nav-div{
+        width: 60%;
+        height: auto;
+        margin-left: 30%;
+        display: flex;
+        gap: 6px;
+        font-family: sans-serif;
+        
+        }
+        .powered{
+        margin-top: 38px;
+        text-align: center;
+        text-decoration: none;
+        color: rgb(67, 69, 106);
+        font-weight: 400;
+        font-size: 18px;
+        font-family: sans-serif; 
+        }
+        .nav-img-2{
+        margin-top: 15px;
+        height: 65px;
+        width: 65px;
+        }
+        .login-link{
+        text-align: center;
+        }
+
+
+@media (max-width: 485) {
+    body{
+        margin: 0;
+        width: 100%;
+    }
+ .last-nav {
+    width: 100%;
+    height: auto;
+    display: flex;
+    justify-content: space-evenly;
+    text-align: center;
+  }
+  .nav-div{
+    height: auto;
+    display: flex;
+    justify-content: space-evenly;
+    text-align: center;
+    /* margin-left: 18%; */
+  }
+
+  .powered {
+    font-size: 14px;
+    font-weight: 500;
+    text-align: center;
+   
+  }
+            
+}
+
+</style>
+</body>
+</html>
+  

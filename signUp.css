@@ -1,0 +1,284 @@
+
+body {
+  margin: 0;
+  padding: 0;
+  height: auto;
+  width: 100%;
+  font-family: "Anton", sans-serif;  
+}
+
+
+.second-nav{
+  /* position: fixed; */
+  background-color: rgba(23, 12, 12, 0.115);
+  height: auto;
+  width: 100%;
+  z-index: 10;
+}
+.banklogo-image{
+  width: 99%;
+  display: flex;
+  justify-content: space-between;
+  margin-left: 0.5%;
+}
+.backhome-arrow{
+  margin-top: 20px;
+  width: 40px;
+  height: 40px;
+}
+   .bank-logo{
+    /* border: 1px solid; */
+    gap: 4px;
+    display: flex;
+    justify-content: center;
+    font-family: "Anton", sans-serif;
+    font-style: normal;
+    font-weight: 500;
+    font-size: 18px;
+    margin-top: 0px;
+    color: rgb(127, 212, 241)
+   }
+   .leadson{
+     text-decoration: none;
+     margin-top: 30px;
+   }
+   .logo{
+   margin-top: 17px;
+   }
+   .img-1{
+    margin-top: 0px;
+   }
+   .list-a a{
+    display: flex;
+    justify-content: space-around;
+    gap: 6px;
+    font-family: "Anton", sans-serif;
+    font-weight: 100;
+    font-style: normal;
+    font-size: 13px;
+    color: rgb(67, 69, 106);
+    text-decoration: none;
+    cursor: pointer;
+    margin-top: 30px;
+   }
+
+   .search{
+    margin-top: 18px;
+   }
+.list-a :hover{
+  background-color:rgba(127, 212, 241, 0.915);
+  transition-duration: 0.3s;
+  border-radius: 4px;
+  color: white;
+  cursor: pointer;
+}
+
+#networkStatus {
+  position: fixed;
+  top: 0;
+  width: 100%;
+  z-index: 1000;
+}
+
+.spinner {
+position: fixed;
+top: 50%;
+left: 50%;
+transform: translate(-50%, -50%);
+z-index: 9999;
+  }
+  
+  .hidden {
+    display: none;
+  }
+  
+  .lds-ring {
+    display: inline-block;
+    position: relative;
+    width: 80px;
+    height: 80px;
+  }
+  .lds-ring div {
+    box-sizing: border-box;
+    display: block;
+    position: absolute;
+    width: 64px;
+    height: 64px;
+    margin: 8px;
+    border: 8px solid #733cabee;
+    border-radius: 50%;
+    animation: lds-ring 1.2s cubic-bezier(0.5, 0, 0.5, 1) infinite;
+    border-color: #6438aa transparent transparent transparent;
+  }
+  .lds-ring div:nth-child(1) {
+    animation-delay: -0.45s;
+  }
+  .lds-ring div:nth-child(2) {
+    animation-delay: -0.3s;
+  }
+  .lds-ring div:nth-child(3) {
+    animation-delay: -0.15s;
+  }
+  @keyframes lds-ring {
+    0% {
+      transform: rotate(0deg);
+    }
+    100% {
+      transform: rotate(360deg);
+    }
+  }
+  
+  .gen-div {
+    background: linear-gradient(#298ee0, #200f63ce);
+    height: auto;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding: 20px;
+  }
+  
+  .signup-container {
+    background: url(./myImages/my\ bank-logo-4.png);
+    background-position: center;
+    background-repeat: no-repeat;
+    background-size: cover;
+    background-color: #fff;
+    border-radius: 8px;
+    box-shadow: 0 10px 25px rgba(162, 55, 55, 0.1);
+    max-width: 800px;
+    padding: 20px;
+    width: 80%;
+  }
+  
+  .signup-form {
+    display: flex;
+    gap: 50px;
+    width: 100%;
+    justify-content: center;
+    align-items: center;
+  }
+  
+  .input-group {
+    display: flex;
+    flex-direction: column;
+  }
+  
+  input[type="text"] {
+    padding: 8px;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    width: 150px;
+    text-align: center;
+  }
+  
+  .input-group {
+    margin-bottom: 15px;
+  }
+  
+  .input-group label {
+    display: block;
+    margin-bottom: 5px;
+    color: #0f112a;
+    /* font-family: sans-serif; */
+    font-weight: 200;
+    font-size: 13px;
+  }
+  .create-acc{
+    font-weight: 500;
+    font-size: 30px;
+  }
+  .input-group input {
+    width: 100%;
+    padding: 10px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    font-size: 16px;
+  }
+  
+  .input-group input:focus {
+    border-color: #110f10ce;
+    outline: none;
+  }
+  
+  .btn-signup {
+    width: 80%;
+    padding: 12px;
+    background-color: #6B73FF;
+    border: none;
+    border-radius: 5px;
+    font-size: 18px;
+    color: #fff;
+    cursor: pointer;
+    margin-left: 10%;
+    transition: background-color 0.3s;
+  }
+  
+  .btn-signup:hover {
+    background-color: #8d93e6f0;
+  }
+  
+  .login-link {
+    margin-top: 20px;
+    font-size: 13px;
+    font-weight: 200;
+    margin-left:10%;
+    text-decoration: none;
+  }
+  
+  .login-link a {
+    color: #6B73FF;
+    text-decoration: none;    
+  }
+  
+  .login-link a:hover {
+    text-decoration: underline;
+    text-underline-offset: 4px;
+    color: rgb(251, 30, 30);
+  }
+  
+  .last-nav {
+    background-color: rgba(203, 203, 203, 0.866);
+    padding: 10px;
+    text-align: center;
+  }
+  
+  .nav-div {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 10px;
+  }
+  
+  .powered {
+    color: rgb(67, 69, 106);
+    font-weight: 200;
+    font-size: 15px;
+    text-decoration: none;
+  }
+  
+  .nav-img-2 {
+    height: 65px;
+    width: 65px;
+  }
+
+  @media (max-width:755px) {
+    .signup-form{
+      width: auto;
+      display: flex;
+      justify-content: space-evenly;
+      padding-right: 25px;
+      
+    }
+  }
+  
+  @media (max-width: 485px) {
+    .signup-form{
+      width: auto;
+      display: block;
+     padding: 25px;
+     padding-right: 50px;
+      
+    }
+    
+  }
+

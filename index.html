@@ -1,0 +1,368 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link rel="stylesheet" href="index.css">
+  <link rel="stylesheet" href="./bootstrap-5.3.3-dist/index.css">
+  <style>
+    @import url('https://fonts.googleapis.com/css2?family=Barlow+Semi+Condensed:ital,wght@0,300;0,400;0,500;0,600;0,700;0,&display=swap');
+    </style>
+  <title>Landing Page</title>
+</head>
+<body>
+  <nav class="nav-bar">
+    <br>
+    <div class="container-nav">
+      <p class="bank-logo">
+       <p class="leadson-bank"> LEADSON BANK</p>
+       <img src="./myImages/my_bank-logo.png" 
+       alt="" width="70px" height="70px">
+      </p>
+      <h5><a class="list-a" href="">BANKING</a></h5>
+      <h5><a class="list-a" href="">ABOUT US</a></h5>
+      <h5><a class="list-a" href="">CSR</a></h5>
+      <!-- <h5><a class="list-a" href="">ACCOUNT</a></h5> -->
+      <div class="dropdown">
+        <h5><a class="list-a" href="#">GET STARTED</a></h5>
+        <div class="dropdown-content">
+          <a href="./signUp.html" id="signUp">Create Account</a>
+          <a href="./signIn.html" id="signIn">Login Account</a>
+        </div>
+      </div>
+      <h5><a class="list-a" href="">CUSTOMER SERVICE</a></h5>
+      <a class="switch-lang" href="">
+        <p>
+         SWITCH LANGUAGE 
+        </p>  
+        <img class="search_icon" src="./myImages/search_icon.png"
+        width="20px" height="20px">
+      </a>
+    </div>
+  </nav>
+  <button id="prev">Previous</button>
+  <button id="next">Next</button>
+  <div class="slideShow-container">
+     
+      <div class="image-slide-1">
+        <br>
+        <div class="text-image-clip-1">
+          <div class="image-on-text">
+            Multi-Cultural bank <br>
+            For AFRICA <br><u class="make-transaction-easy">Lead the Way</u>
+          </div>
+        </div>
+      </div>
+
+      <div class="image-slide-2" >
+        <br>
+       <div class="text-image-clip-2">
+        <div class="image-on-text">
+          Everyday Banking <br>
+          on your mobile device <br> <u class="make-transaction-easy">make life easier for you</u>
+        </div>
+       </div>
+      </div>
+      <div class="image-slide-3">
+        <br>
+        <div class="text-image-clip-3">
+         <div class="image-on-text">
+           get your personalized <br>
+           atm card in a minute <br><u class="make-transaction-easy">makes you outstanding</u>
+         </div>
+        </div>
+      </div>
+      <div class="image-slide-4">
+        <br>
+        <div class="text-image-clip-4">
+         <div class="image-on-text">
+           go global, enjoy your effor with
+           leadson travel ensurance<br><u class="make-transaction-easy">choose your easy life</u>
+         </div>
+        </div>
+      </div> 
+  </div>
+  <!-- Notification element that will be shown when there's a connection issue -->
+  <div id="networkStatus" style="display: none; color: white;
+   background-color: red; padding: 10px; text-align: center;">
+    You are currently offline. Please check your internet connection.
+  </div>
+
+  <div id="spinner" class="spinner hidden">
+    <div class="lds-ring"><div></div><div></div><div></div><div></div></div>
+  </div>
+
+  <div class="background-image">
+    <br>
+    <div class="choose">CHOOSE WHAT WORKS FOR YOU</div>
+    
+    <div class="flex-container-1">
+      <div class="sub-flex">
+        <div class="image-text">
+          <div class="zoom-image" style="overflow: hidden;">
+            <img class="image-for-advert-1"src="./myImages/create acc.webp" alt="">
+          </div>
+          <ul class="account-create" style="overflow: hidden; list-style: none;">
+            <li>CREATE YOUR <br> ACCOUNT WITH US </li>
+          </ul>
+        </div>
+        <div class="image-text">
+          <div class="zoom-image" style="overflow: hidden;">
+            <img class="image-for-advert-2" src="./myImages/bank-animate (6).jpg" alt="">
+          </div>
+          <ul class="take-step"  style="overflow: hidden; list-style: none;">
+            <li>TAKE A STEP FOR YOUR<br>FUTURE INVESTMENT</li>
+          </ul>
+        </div>
+      </div>
+      <div class="sub-flex">
+        <div class="image-text">
+          <div class="zoom-image" style="overflow: hidden;">
+            <img class="image-for-advert-3" src="./myImages/create-slide (6).jpg" alt="">
+          </div>
+         <ul class="build-bussiness" style="overflow: hidden; list-style: none;">
+           <li>BUILD YOUR BUSSINESS<br>CREATE BUSSINESS ACCOUNT</li>
+         </ul>
+        </div>
+        <div class="image-text">
+          <div class="zoom-image" style="overflow: hidden;">
+            <img class="image-for-advert-4" src="./myImages/family.jpg" alt="">
+          </div>
+          <ul class="get-ready"  style="overflow: hidden;">
+            <li style="overflow: hidden;">
+              <img class="verify-icon"  src="./myImages/verify-icon-removebg-preview.png" width="18px">
+              GET READY FOR THE FUTURE
+            </li>
+            <li style="overflow: hidden;">
+              <img class="verify-icon" src="./myImages/verify-icon-removebg-preview.png" width="18px">
+              PLAN FOR THE FUTURE
+            </li>
+            <li style="overflow: hidden;">
+              <img class="verify-icon" src="./myImages/verify-icon-removebg-preview.png" width="18px">
+              INVEST FOR THE FUTURE
+            </li>
+          </ul>
+        </div>
+      </div>
+      
+      
+    </div>
+  </div>
+
+  <marquee behavior="screen" direction="left" class="marquee-div">
+    <div class="marquee-text">
+      <u class="list-transfer"> BANKING MADE EASIER WITH LEADSON BANK</u>
+      <img src="./myImages/my_bank-logo.png"
+       width="100px" height="100px" style="margin-top: -13px;">
+       <u class="list-transfer">TRANSFER AND WITHDRAW CASH FROM HOME </u>
+       <img src="./myImages/verify-icon-removebg-preview.png" 
+       width="40px" height="40px" style="margin-top: 13px;"> 
+      <u class="list-transfer">TRANSACT AT EASE, 24/7</u>
+      <img src="./myImages/verify-icon-removebg-preview.png" 
+      width="40px" height="40px" style="margin-top: 13px;">   
+    </div>
+  </marquee>
+  <br>
+  
+  <div class="main-cover-img-container">
+    <br>
+    <div class="flex-cover-img">
+      <div class="cover-image-div-1">
+        <div class="image-with-clip-path-1"></div>
+        <div class="clip-path-text">
+          <div class="text-div">
+            YOU ARE NEVER ALONE WITH LEADSON  AID AND CONSULTANTS <br> 
+          <u class="make-transaction-easy" style="text-decoration: none;">
+            TRANSACTIONS MADE EASY AND LESS STRESS
+          </u>
+          </div>
+        </div>    
+      </div>
+      <div class="cover-image-div-2">
+          <div class="image-with-clip-path-2"></div>
+          <div class="clip-path-text">
+            <div class="text-div">
+              YOU ARE NEVER ALONE WITH LEADSON AID AND CONSULTANTS <br>
+              <u class="make-transaction-easy" style="text-decoration: none;"> GET YOUR INDIVIDUAL CUSTOMIZED 
+              <br><u class="atm">ATM</u> CARD </u>
+            </div>
+          </div>
+        </div>  
+      </div>
+    </div> 
+   
+  </div>
+
+  <div class="bg-container">
+    <div class="text-container">
+      <br>
+      <div class="text-holder">
+        <div class="location"> 
+          <p class="leadson-address"><strong>Our Mission</strong></p>
+          With mission to make financial services more inclusive through technology,
+          Leadson Bank is dedicated to providing secure, easy to use & affordable
+          financial services with super fast user experience, amazing incentive 
+          package on transfer/airtime & data top-up, innovative product to use as 
+          balance with amazing daily interest, reliable debit card with no charge 
+          and best resolution experience etc. With Leadson account, you can have full 
+          control of your finances, payments & transactions with ease, all on one 
+          platform! Yes, Leadson is your one-stop payment services platform and more,
+          package on transfer/airtime & data top-up, innovative product to use as 
+          balance with amazing daily interest, reliable debit card with no charge 
+          and best resolution experience etc. With Leadson account, you can have full 
+          control of your finances, payments & transactions with ease, all on one 
+          platform! Yes, Leadson is your one-stop payment services platform and more,
+          package on transfer/airtime & data top-up, innovative product to use as 
+          balance with amazing daily interest, reliable debit card with no charge 
+          and best resolution experience etc. With Leadson account, you can have full 
+          control of your finances, payments & transactions with ease.
+        </div>
+
+        <div class="location">
+          <p class="leadson-address"><strong>Leadson Bank Office Addresses</strong></p>
+          <p><strong>ABUJA:</strong> Uyk Hexahub Plaza, opposite Hawthrone Suites, Garki 11, Abuja.</p>
+          <p><strong>LAGOS:</strong> Allen Ikeja:Festac Town, Lagos State Nigeria.</p>
+          <p><strong>LAGOS, Ikorodu:</strong> Jumofak Bus Stop, Ikorodu, Lagos State. </p>
+          <p><strong>ABEOKUTA:</strong> Dolly House Opposite Laroy Hotel, Abiola Way Abeokuta, Ogun State.</p>
+          <p><strong>IBADAN:</strong> Adamasingba Road, Eleganza, Ibadan, Oyo State. </p>
+          <p><strong>JOS:</strong> Thilda's Center,Jos, platue State.</p>
+          <p><strong>KADUNA:</strong> Asd City Mall Katsina Road By Independent Way, Kaduna State. </p>
+          <p><strong>KANO:</strong> Fagge local government area, Kano State. </p>
+          <p><strong>OSOGBO:</strong> Osogbo, beside MTN office, Osun State. </p>
+        </div>
+
+        <div class="location">
+          <p class="leadson-address"><strong>Leadson Bank Office Addresses</strong></p>
+          <p><strong>BENUE:</strong> Chiventis Plaza, Atom Kpera OAD, Modern Market Benue State.</p>
+          <p><strong>AKWA IBOM:</strong> 
+            Plot 9 Nsikak Eduok Ave, Homelight Properties, 
+            AfterChristian Centre, Two Lane Uyo, Akwa Ibom State. 
+          </p>
+          <p><strong>IMO:</strong> No.18 Tetlow Road, off Lagos Street Owerri, Imo State.</p>
+          <p><strong>ABIA:</strong> No 3 Okigwe Road, opposite De Ville Aba South LGA, Abia State.</p>
+          <p><strong>KOGI:</strong> No 45, 1BB Way, opposite Kogi State Revenue House, Lokoja, Kogi State.</p>
+          <p><strong>PORTHARCOURT:</strong> Plot 19 Evo Road, opposite Medicine Mart Pharmacy GRA Porthacout,Rivers State</p>
+          <p><strong>EDO:</strong> 23, Dawson Road, Opposite Felona Hotel, Benin City Edo State.</p> 
+        </div>
+        
+      </div>
+      <br>
+    </div>
+  </div>
+      
+  <nav class="last-nav">
+    <div class="nav-div">
+      <div> 
+        <img class="nav-img-2" src="./myImages/my_bank-logo.png"
+        width="75px" height="75px">
+      </div>
+      <u class="powered"><strong>Powered By:</strong> Leadson Bank Digital Service LTD. </u>
+      <div class="back-to-top">
+        <img id="scrollTopBtn" class="scroll-to-top"
+        src="./myImages/arrow icon rbg.png" height="30px">
+      </div>
+    </div>
+  </nav>
+
+
+  <script>
+
+    let currentSlide = 0;
+    const slides = document.querySelectorAll('.slideShow-container > div');
+    const totalSlides = slides.length;
+    function showSlide(index) {
+      slides.forEach((slide, i) => {
+        slide.classList.remove('active');
+        if (i === index) {
+          slide.classList.add('active');
+        }
+      });
+    }
+
+    function nextSlide() {
+      currentSlide = (currentSlide + 1) % totalSlides;
+      showSlide(currentSlide);
+    }
+
+    function prevSlide() {
+      currentSlide = (currentSlide - 1 + totalSlides) % totalSlides;
+      showSlide(currentSlide);
+    }
+    function showNextSlide() {
+      nextSlide();
+    }
+    function showPrevSlide() {
+      prevSlide();
+    }
+    setInterval(nextSlide, 8000);
+    showSlide(currentSlide);
+
+    document.getElementById('next').addEventListener('click', showNextSlide);
+    document.getElementById('prev').addEventListener('click', showPrevSlide);
+
+    function showSpinner() {
+      document.getElementById('spinner').classList.remove('hidden');
+    }
+    function hideSpinner() {
+      document.getElementById('spinner').classList.add('hidden');
+    }
+    async function loadData(){
+      showSpinner();
+      await new Promise(resolve => setTimeout(resolve, 3000)); 
+      hideSpinner();
+    }
+    document.getElementById('signUp').addEventListener('click', function() {
+      showSpinner();
+      alert('Navigating to Sign Up page');
+      showSpinner();
+    });
+    document.getElementById('signIn').addEventListener('click', function() {
+      showSpinner();
+      alert('Navigating to Sign In page');
+      showSpinner();
+    });
+
+    function updateNetworkStatus() {
+      const networkStatus = document.getElementById('networkStatus');
+      if (navigator.onLine) {
+        networkStatus.style.display = 'none';
+      } else {
+        networkStatus.style.display = 'block';
+      }
+    }
+    // Initial check when the page loads
+    updateNetworkStatus();
+
+    document.getElementById('signUp').addEventListener('click', function (event) {
+      if (!navigator.onLine) {
+        event.preventDefault();
+        alert('You are offline. Please connect to the internet to complete the sign-up process.');
+      }
+    });
+
+    document.getElementById('signIn').addEventListener('click', function (event) {
+      if (!navigator.onLine) {
+        event.preventDefault();
+        alert('You are offline. Please connect to the internet to complete the sign-in process.');
+      }
+    });
+
+    let scrollTopBtn = document.getElementById("scrollTopBtn");
+    window.onscroll = function() {
+    const totalHeight = document.documentElement.scrollHeight;
+    const currentScrollPos = window.innerHeight + window.scrollY;
+    if (totalHeight - currentScrollPos < 2000) {
+      scrollTopBtn.style.display = "block";
+    } else {
+      scrollTopBtn.style.display = "none";
+    }
+    };
+    scrollTopBtn.onclick = function(e) {
+      e.preventDefault();
+      window.scrollTo({ top: 0, behavior: 'smooth' });
+    };
+
+  </script>
+ <!-- <script src="./index.js"></script> -->
+</body>
+</html>

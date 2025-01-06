@@ -1,0 +1,293 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Sign Up</title>
+    <link rel="stylesheet" href="signUp.css">
+    <style>
+      @import url('https://fonts.googleapis.com/css2?family=Barlow+Semi+Condensed:ital,wght@0,300;0,400;0,500;0,600;0,700;&display=swap');
+      </style>
+</head>
+<body>
+  <nav class="second-nav">
+    <div class="banklogo-image">
+      <a id="backhomeArrow" class="backhome-arrow" href="./signedIn-page.html">
+        <img src="./myImages/backhome-arrow icon rbg.png"
+        alt="" width="40px" height="40px">
+      </a>
+      <div class="bank-logo">
+        <u class="leadson"> LEADSON BANK</u>
+        <img class="img-1" src="./myImages/my_bank-logo.png" 
+        alt="" width="85px" height="85px">
+      </div>
+      <div class="list-a">
+        <h5><a href="">CUSTOMER SERVICE</a></h5>
+        <!-- <a href=""> <img class="logo" src="./myImages/search_icon.png"
+        width="20px" height="20px"></a> -->
+      </div>
+    </div>
+  </nav>
+
+  <!-- Notification element that will be shown when there's a connection issue -->
+  <div id="networkStatus" style="display: none; color: white;
+   background-color: red; padding: 10px; text-align: center;">
+    You are currently offline. Please check your internet connection.
+  </div>
+
+  <div id="spinner" class="spinner hidden">
+    <div class="lds-ring"><div></div><div></div><div></div><div></div></div>
+  </div>
+       
+  <div class="gen-div">
+   <br>
+    <div class="signup-container">
+      <h1 class="create-acc" style="text-align: center;">Create an Account</h1>
+      <div class="signup-form">
+        <div class="signup-flexed-div">
+            <div class="input-group">
+              <label for="FirstName">First Name</label>
+              <input type="text" id="firstName" name="FirstName" required>
+            </div> 
+            <div class="input-group">
+              <label for="OtherNames">Other Names</label>
+              <input type="text" id="otherNames" name="otherNames" required>
+            </div>          
+            <div class="input-group">
+              <label for="username">Username</label>
+              <input type="text" id="username" name="username" required>
+            </div>
+            <div class="input-group">
+              <label for="email">Email</label>
+              <input type="email" id="email" name="email" required>
+            </div>
+        </div>
+        <div class="signup-flexed-div">
+          <div class="input-group">
+            <label for="username">Phone Number</label>
+            <input type="tel" id="number" name="number" required>
+          </div>
+          <div class="input-group">
+            <label for="dob">Date Of Birth</label>
+            <input  id="dob" name="date-of-birth" required>
+          </div>
+          <div class="input-group">
+            <label for="profile-picture">Choose Profile Picture</label>
+            <input id="profilePic" class="mb-3 form-control" type="file" required>
+          </div>
+          <div class="input-group">
+            <label for="password">Password</label>
+            <input type="password" id="password" name="password" required>
+          </div>
+          <div class="input-group">
+            <label for="confirm-password">Confirm Password</label>
+            <input type="password" id="confirmPassword" name="confirm-password" required>
+          </div>
+        </div>           
+      </div>
+    
+      <button id="submit" class="btn-signup" onclick="signUp()">Sign Up</button>
+      <br>
+      <u class="login-link">Already have an account? | 
+        <a href="#" id="logIn" onclick="signIn()">Log in</a>
+      </u>
+    </div>
+  </div>
+  
+  <nav class="last-nav">
+    <div class="nav-div">
+      <div> 
+        <img class="nav-img-2" src="./myImages/my_bank-logo.png">
+      </div>
+      <u class="powered"> Powered By: Leadson Bank Digital Service LTD. </u>
+    </div>
+  </nav>
+
+<script type="module">
+  import { initializeApp } from "https://www.gstatic.com/firebasejs/10.14.1/firebase-app.js";
+  import { getAuth, createUserWithEmailAndPassword } from "https://www.gstatic.com/firebasejs/10.14.1/firebase-auth.js";
+  import { getDatabase, ref, set } from "https://www.gstatic.com/firebasejs/10.14.1/firebase-database.js";
+  import { getStorage, ref as storageRef, uploadBytes, getDownloadURL } from "https://www.gstatic.com/firebasejs/10.14.1/firebase-storage.js";
+
+  const firebaseConfig = {
+    apiKey: "AIzaSyC2UDesaxb8IqKRgS6GGcBhdBhfLNhSbxo",
+    authDomain: "leadson-bank-app.firebaseapp.com",
+    projectId: "leadson-bank-app",
+    storageBucket: "leadson-bank-app.appspot.com",
+    messagingSenderId: "1011064039007",
+    appId: "1:1011064039007:web:59acca967e30b39c1b9dea"
+  };
+
+  const app = initializeApp(firebaseConfig);
+  const auth = getAuth(app); 
+  const database = getDatabase();
+  const storage = getStorage();
+
+  function showSpinner() {
+    document.getElementById('spinner').classList.remove('hidden');
+  }
+
+  function hideSpinner() {
+    document.getElementById('spinner').classList.add('hidden');
+  }
+
+  async function loadData() {
+    showSpinner();
+      
+    await new Promise(resolve => setTimeout(resolve, 3000)); 
+
+    hideSpinner();
+  }
+
+  document.getElementById('backhomeArrow').addEventListener('click', (e) => {
+    e.preventDefault(); 
+    showSpinner();  
+    setTimeout(() => {
+      hideSpinner(); 
+      window.location.href = './bankApp.html';  
+    }, 3000);  
+  });
+
+  document.getElementById("logIn").addEventListener("click", function (event) {
+    event.preventDefault();
+    showSpinner();
+    setTimeout(function () {
+     window.location.href = "./signIn.html"; 
+    }, 3000); 
+  });
+
+
+  function generateAccountNumber() {
+    return Math.floor(1000000000 + Math.random() * 9000000000).toString(); 
+  }
+
+  function generateTransferPin() {
+    return Math.floor(1000 + Math.random() * 9000).toString(); 
+  }
+
+  document.getElementById("submit").addEventListener('click', () => {
+    showSpinner();
+    let firstName = document.getElementById("firstName").value;
+    let otherNames = document.getElementById("otherNames").value;
+    let username = document.getElementById("username").value;
+    let email = document.getElementById("email").value;
+    let phone = document.getElementById("number").value;
+    let dob = document.getElementById("dob").value;
+    let password = document.getElementById("password").value;
+    let confirmPassword = document.getElementById("confirmPassword").value;
+    let profilePic = document.getElementById("profilePic").files[0];
+    let date = new Date();
+      
+    if (password !== confirmPassword) {
+      console.log("Passwords do not match");
+      alert("Passwords do not match");
+      hideSpinner();
+      return;
+    }
+    if (!profilePic) {
+      alert("Please select a profile picture.");
+      hideSpinner();
+     return;
+    }
+   // Create User in Firebase Authentication
+   createUserWithEmailAndPassword(auth, email, password)
+   .then((userCredential) => {
+      const user = userCredential.user;
+      const uid = user.uid;
+      console.log("User successfully signed up");
+
+      // Upload profile picture
+      const picRef = storageRef(storage, `profilePictures/${uid}`);
+      uploadBytes(picRef, profilePic)
+      .then((snapshot) => {
+        console.log("Profile picture uploaded");
+        return getDownloadURL(snapshot.ref);
+      })
+      .then((downloadURL) => {
+        console.log("Profile picture URL: ", downloadURL);
+
+        // Generate account number and transfer PIN
+        const accountNumber = generateAccountNumber();
+        const transferPin = generateTransferPin();
+        
+        // Create user object with profile picture URL and additional info
+        let userObj = {
+          firstName,
+          otherNames,
+          username,
+          email,
+          phone,
+          dob,
+          profilePicURL: downloadURL, 
+          accountNumber, 
+          transferPin, 
+          balance: 10000, 
+          date: date.toLocaleDateString(),
+        };
+                          
+        // Save user data to the database
+        const userRef = ref(database, `users/${uid}`);
+        return set(userRef, userObj);
+        showSpinner();
+      })
+      .then(() => {
+        console.log("User registered successfully");
+        alert("User registered successfully");
+        hideSpinner();
+        window.location.href = 'signedIn-page.html';
+      })
+      .catch((error) => {
+        console.error("Error saving user data: ", error);
+      });
+    })
+    .catch((error) => {
+      console.error("Error during signup: ", error.message);
+      alert('Error during signup')
+      hideSpinner()
+    });
+  });  
+
+  document.getElementById('dob').addEventListener('input', function(e) {
+    let input = e.target.value.replace(/\D/g, ''); 
+    if (input.length >= 5) {
+      e.target.value = input.slice(0, 2) + '-' + input.slice(2, 4) + '-' + input.slice(4, 8);
+    }else if (input.length >= 3) {
+      e.target.value = input.slice(0, 2) + '-' + input.slice(2, 4);
+    }else if (input.length >= 1) {
+      e.target.value = input.slice(0, 2);
+    }
+  });
+
+  function updateNetworkStatus() {
+      const networkStatus = document.getElementById('networkStatus');
+      if (navigator.onLine) {
+        networkStatus.style.display = 'none';
+      } else {
+        networkStatus.style.display = 'block';
+      }
+    }
+
+    updateNetworkStatus();
+    document.getElementById('submit').addEventListener('click', function (event) {
+      if (!navigator.onLine) {
+        event.preventDefault();
+        networkStatus.style.display = 'none';
+        // alert('You are offline. Please connect to the internet to complete the sign-up process.');
+      } else {
+        networkStatus.style.display = 'block';
+      }
+    });
+
+    document.getElementById('logIn').addEventListener('click', function (event) {
+      if (!navigator.onLine) {
+        event.preventDefault();
+        networkStatus.style.display = 'none';
+        // alert('You are offline. Please connect to the internet to complete the sign-in process.');
+      } else {
+        networkStatus.style.display = 'block';
+      }
+    });
+    
+</script>
+</body>
+</html>

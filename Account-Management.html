@@ -1,0 +1,263 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Barlow+Semi+Condensed:ital,wght@0,300;0,400;0,500;0,600;&display=swap');
+        </style>
+    <title>Account Management</title>
+    <link rel="stylesheet" href="account-management.css">
+</head>
+<body>
+
+    <nav class="second-nav">
+        <div class="banklogo-image">
+            <div class="bank-logo">
+                <u class="leadson">LEADSON BANK</u>
+                <br>
+                <img class="img-1" src="./myImages/my_bank-logo.png" alt="" width="70px" height="70px">
+            </div>
+            <div class="search-bar">
+                <p class="search">TRANSLATE</p>
+                <a href="">
+                    <img class="logo" src="./myImages/search_icon.png" width="20px" height="20px">
+                </a>
+            </div>
+        </div>
+    </nav>
+    <div id="spinner" class="spinner hidden">
+        <div class="lds-ring"><div></div><div></div><div></div><div></div></div>
+    </div>
+<div class="gen-div">
+    <br>
+    <div class="account-management">
+        <h1>Account Management</h1>
+    </div>    
+    
+    <div class="form-container">
+        <h2>Reset Password</h2>
+        <form id="resetPasswordForm">
+            <label for="newPassword">Old Password:</label>
+            <input type="password" id="oldPassword" required>
+            <label for="newPassword">New Password:</label>
+            <input type="password" id="newPassword" required>
+            <label for="newPassword"> Confirm New Password:</label>
+            <input type="password" id="confirmPassword" required>
+            <button type="submit">Reset Password</button>
+        </form>
+    </div>
+
+    
+    <div class="form-container">
+        <h2>Forgotten Password </h2>
+        <form id="forgotPasswordForm">
+            <label for="email">Enter your email:</label>
+            <input type="email" id="email" placeholder="example@gmail.com" required>
+            <button type="submit">Send Reset Email</button>
+        </form>
+        <p id="message"></p>
+    </div>
+        
+    <div class="form-container">
+        <h2>Reset Transfer Pin</h2>
+        <form id="resetPinForm">
+            <label for="oldPin">Enter your Old Pin:</label>
+            <input type="password" id="oldPin" required>
+            <label for="newPin">Enter your New Pin:</label>
+            <input type="password" id="newPin" required>
+            <label for="confirmNewPin">Confirm New Pin:</label>
+            <input type="password" id="confirmNewPin" required>
+            <button type="submit">Submit Pin</button>
+        </form>
+    </div>
+        
+     <!-- Change Email Form -->
+     <div class="form-container">
+        <h2>Change Email</h2>
+        <form id="changeEmailForm">
+            <label for="oldEmail">Old Email:</label>
+            <input type="email" id="oldEmail" required>
+            <label for="newEmail">New Email:</label>
+            <input type="email" id="newEmail" required>
+            <label for="changeEmailPassword">Password:</label>
+            <input type="password" id="changeEmailPassword" required>
+            <button type="submit">Change Email</button>
+        </form>
+    </div>
+   
+</div>
+<nav class="last-nav">
+    <div class="last-div"> 
+      <img class="nav-img-2" src="./myImages/my_bank-logo.png" width="70px" height="70px">
+      <u class="powered"> Powered By: Leadson Bank Digital Service LTD. </u>
+    </div>
+    <div class="back-to-top">
+        <img id="scrollTopBtn" class="scroll-to-top"
+        src="./myImages/arrow icon rbg.png" height="30px">
+    </div>
+  </div>
+  </nav> 
+
+<script type="module">
+    import { initializeApp } from "https://www.gstatic.com/firebasejs/10.14.1/firebase-app.js";
+    import { getAuth, sendPasswordResetEmail, updatePassword, updateEmail,
+    signInWithEmailAndPassword } from "https://www.gstatic.com/firebasejs/10.14.1/firebase-auth.js";
+    import { getFirestore, doc, getDoc, setDoc } from "https://www.gstatic.com/firebasejs/10.14.1/firebase-firestore.js";
+    // Initialize Firebase with your configuration
+    const firebaseConfig = {
+        apiKey: "AIzaSyC2UDesaxb8IqKRgS6GGcBhdBhfLNhSbxo",
+        authDomain: "leadson-bank-app.firebaseapp.com",
+        projectId: "leadson-bank-app",
+        storageBucket: "leadson-bank-app.appspot.com",
+        messagingSenderId: "1011064039007",
+        appId: "1:1011064039007:web:59acca967e30b39c1b9dea"
+    };
+    const app = initializeApp(firebaseConfig);
+    const auth = getAuth(app);
+    const db = getFirestore(app);
+
+    function showSpinner() {
+     document.getElementById('spinner').classList.remove('hidden');
+    }
+    function hideSpinner() {
+     document.getElementById('spinner').classList.add('hidden');
+    }
+
+    // document.getElementById("backhomeArrow").addEventListener("click", function (event) {
+    //     event.preventDefault();
+    //     showSpinner(); 
+    //     setTimeout(function () {
+    //         window.location.href = "./signedIn-page.html"; 
+    //     }, 3000); 
+    // });
+
+    // Reset Password Form
+    document.getElementById('resetPasswordForm').addEventListener('submit', async (e) => {
+        e.preventDefault();
+        
+        const oldPassword = document.getElementById('oldPassword').value;
+        const newPassword = document.getElementById('newPassword').value;
+
+        if (auth.currentUser) {
+            try {
+                const userCredential = await signInWithEmailAndPassword(auth, auth.currentUser.email, oldPassword);
+                showSpinner();
+                await updatePassword(userCredential.user, newPassword);
+                alert('Password reset successful');
+            } catch (error) {
+                alert('Error resetting password: ' + error.message);
+                hideSpinner();
+                document.getElementById('resetPasswordForm').reset();
+            }
+        } else {
+            alert('User not signed in');        }
+    });
+
+   // Reset Transfer Pin Form
+document.getElementById('resetPinForm').addEventListener('submit', async (e) => {
+    e.preventDefault();
+    showSpinner();
+    
+    const oldPin = document.getElementById('oldPin').value;
+    const newPin = document.getElementById('newPin').value;
+    const confirmNewPin = document.getElementById('confirmNewPin').value;
+
+    if (newPin !== confirmNewPin) {
+        showSpinner();
+        alert('New pin and confirmation pin do not match');
+        return;
+    }
+
+    if (auth.currentUser) {
+        try {
+            const userDoc = doc(db, 'users', auth.currentUser.uid);
+            const userData = await getDoc(userDoc);
+             
+            if (userData.exists()){
+              
+                console.log("Document data:", userData.data());
+            } 
+             if(userData.data().transferPin === oldPin) {
+                await setDoc(userDoc, { transferPin: newPin }, { merge: true });
+                alert('Transfer Pin reset successful');
+            } else {
+                alert('Old pin is incorrect');
+            }
+        } catch (error) {
+            alert('Error resetting Transfer Pin: ' + error.message);
+        } finally {
+            hideSpinner();
+            document.getElementById('resetPinForm').reset();
+        }
+    } else {
+        alert('User not signed in');
+    }
+});
+
+    // Change Email Form
+    document.getElementById('changeEmailForm').addEventListener('submit', async (e) => {
+        e.preventDefault();
+        showSpinner();
+        const oldEmail = document.getElementById('oldEmail').value;
+        const password = document.getElementById('changeEmailPassword').value; 
+        const newEmail = document.getElementById('newEmail').value;
+
+        if (auth.currentUser) {
+            try {
+                const userCredential = await signInWithEmailAndPassword(auth, oldEmail, password);
+                showSpinner();
+                await updateEmail(userCredential.user, newEmail);
+                alert('Email updated successfully');
+            } catch (error) {
+                alert('Error updating email: ' + error.message);
+                hideSpinner();
+                document.getElementById('changeEmailForm').reset();
+            }
+        } else {
+            alert('User not signed in');
+        }
+    });
+
+    //Forgotten Password 
+    document.getElementById('forgotPasswordForm').addEventListener('submit', async (e) => {
+    e.preventDefault();
+    
+    const email = document.getElementById('email').value;
+    const messageElement = document.getElementById('message');
+    
+    try {
+        await sendPasswordResetEmail(auth, email);
+        showSpinner();
+        messageElement.innerText = 'A password reset email has been sent to your inbox.';
+    } catch (error) {
+        messageElement.innerText = 'Error: ' + error.message;
+        
+    }finally {
+        hideSpinner();
+        document.getElementById('forgotPasswordForm').reset();
+    }
+});
+
+    // Scroll to Top functionality
+    let scrollTopBtn = document.getElementById("scrollTopBtn");
+    window.onscroll = function() {
+        const totalHeight = document.documentElement.scrollHeight;
+        const currentScrollPos = window.innerHeight + window.scrollY;
+        if (totalHeight - currentScrollPos < 960) {
+            scrollTopBtn.style.display = "block"; // Show button
+        } else {
+            scrollTopBtn.style.display = "none"; // Hide button
+        }
+    };
+    
+    scrollTopBtn.onclick = function(e) {
+        e.preventDefault();
+        window.scrollTo({ top: 0, behavior: 'smooth' });
+    };
+
+</script>
+
+
+</body>
+</html>

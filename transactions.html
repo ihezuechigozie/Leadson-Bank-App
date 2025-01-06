@@ -1,0 +1,451 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <style>
+      @import url('https://fonts.googleapis.com/css2?family=Barlow+Semi+Condensed:ital,wght@0,300;0,400;0,500;0,600;0,700;&display=swap');
+      </style>
+    <title>Transactions</title>
+</head>
+<body>
+    <nav class="nav-bar">
+        <br>
+        <div class="container-nav">
+          <a id="backhomeArrow" class="backhome-arrow" href="./signedIn-page.html">
+            <img src="./myImages/backhome-arrow icon rbg.png"
+            alt="" width="40px" height="40px">
+          </a>
+          <a class="list-profile" href=""><img src="./myImages/profile-icon-bg.png"
+            alt="" width="40px" height="40px">
+          </a>
+          <h5><a class="list-a" href="">ABOUT US</a></h5>
+          <h5><a class="list-a" href="">CUSTOMER SERVICE</a></h5>
+          <div class="dropdown">
+            <h5><a class="list-a" href="#">MY ACCOUNT</a></h5>
+            <div class="dropdown-content">
+              <br>
+              <a href="./bankApp.html" id="logOut">>>>Log Out</a> <br>
+              <a href="#" id="resetPassword">>>>Reset Password</a> <br>
+            </div>
+          </div> 
+          <br>  
+          <img class="img-1" src="./myImages/my_bank-logo.png" 
+          alt="" width="50px" height="50px">
+        </div>
+      </nav>
+      <div id="spinner" class="spinner hidden">
+        <div class="lds-ring"><div></div><div></div><div></div><div></div></div>
+      </div>
+
+    <div class="transaction-container">
+      <h2>Your Transactions History</h2>
+      <table class="table-list">
+        <thead>
+          <tr>
+            <th id="date">Date</th>
+            <th id="type">Type</th>
+            <th id="amount">Amount</th>
+            <th id="description">Description</th>
+          </tr>
+        </thead>
+        <tbody id="transaction-list">
+          <tr>
+            <td></td>
+            <td></td>
+            <td></td>
+            <td></td>
+          </tr>
+        </tbody>
+      </table>
+    
+    </div> 
+      
+<style>
+
+body {
+    font-family: 'Lato', sans-serif;
+    margin: 0;
+    padding: 0;
+    background-color: #f4f4f4;
+}
+.nav-bar{
+  width: 99.98%;
+  height: 85px;
+  background-color: rgba(183, 215, 227, 0.82);
+}
+.container-nav{
+ width: 83%;
+ height: 60px;
+ margin-left: 3%;
+ display: flex;
+ justify-content: space-between;
+ 
+}
+.list-a{
+  /* border: 1px solid; */
+  padding: 1px;
+  font-family: "Lato", sans-serif;
+  font-weight: 600;
+  font-style: normal;
+  font-size: 12px;
+  text-decoration: none;
+  color: rgb(28, 29, 32);
+}
+.list-a:hover{
+  background-color: rgba(12, 16, 47, 0.778);
+  /* transition: 0.4s; */
+  transition: 0.4s; 
+  cursor: pointer;
+  color: #ffffff; 
+  border-radius: 5px;
+}
+.backhome-arrow{
+  margin-top: 6px;
+  width: 40px;
+  height: 40px;
+}
+.list-profile{
+  margin-top: 6px;
+  border: 1px solid black;
+  border-radius: 5px;
+  width: 40px;
+  height: 40px;
+}
+.img-1{
+  margin-top: 5px; 
+}
+.list-profile:hover{
+    background-color: rgba(206, 206, 206, 0.171);
+    transition-duration: 0.3s;
+    transition-delay: 0.3s;
+    cursor: pointer;
+    width: 40px;
+    height: 40px;
+    border-radius: 5px;
+    
+
+}
+.dropdown {
+  position: relative;
+  display: inline-block;
+  
+}
+.dropdown-content {
+  display: none;
+  position: absolute;
+  background-color: #f9f9f9;
+  width: 160px;
+  height: auto;
+  box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2);
+  z-index: 2;
+  border-radius: 5px;
+  transform: translateX(-20px);
+  transform: translateY(-15px);
+  
+}
+#tHistory,
+#resetPassword,
+#logOut{
+  font-family: "Lato", sans-serif;
+  font-weight: 500;
+  font-style: normal;
+  font-size: 14px;
+}
+.dropdown-content a {
+  color: #0f2338c5; 
+  padding: 2px 3px;
+  text-decoration: none;
+  display: block;
+  text-align: left;
+  border-radius: 5px;
+  
+}
+.dropdown-content a:hover {
+  background-color: #aca6a659;
+  z-index: 3;
+  text-decoration: none;
+  color: rgb(67, 69, 106);
+  transition-duration: 0.3s;
+  transition-delay: 0.3s;
+}
+.dropdown:hover .dropdown-content {
+  display: block;
+  z-index: 3;
+  font-family: "Lato", sans-serif;
+  font-weight: 500;
+  font-style: normal;
+  font-size: 12px;
+  text-decoration: none;
+  color: rgb(67, 69, 106);
+  transition-duration: 0.5s;
+  transition-delay: 0.5s;
+}
+.spinner {
+  position: fixed;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  z-index: 9999;
+}
+
+.hidden {
+  display: none;
+}
+
+.lds-ring {
+  display: inline-block;
+  position: relative;
+  width: 80px;
+  height: 80px;
+}
+.lds-ring div {
+  box-sizing: border-box;
+  display: block;
+  position: absolute;
+  width: 64px;
+  height: 64px;
+  margin: 8px;
+  border: 8px solid #733cabee;
+  border-radius: 50%;
+  animation: lds-ring 1.2s cubic-bezier(0.5, 0, 0.5, 1) infinite;
+  border-color: #6438aa transparent transparent transparent;
+}
+.lds-ring div:nth-child(1) {
+  animation-delay: -0.45s;
+}
+.lds-ring div:nth-child(2) {
+  animation-delay: -0.3s;
+}
+.lds-ring div:nth-child(3) {
+  animation-delay: -0.15s;
+}
+@keyframes lds-ring {
+  0% {
+    transform: rotate(0deg);
+  }
+  100% {
+    transform: rotate(360deg);
+  }
+}
+
+
+.transaction-container {
+    width: 80%;
+    margin: 10px auto;
+    background-color: white;
+    padding: 14px;
+    border-radius: 8px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+   font-family: "Lato", sans-serif;
+   font-weight: 500;
+   font-style: normal;
+   font-size: 18px;
+   text-align: center;
+}
+table {
+    width: 100%;
+    border-collapse: collapse;
+}
+th, td {
+    padding: 12px;
+    text-align: left;
+    border-bottom: 1px solid #ddd;
+}
+th {
+    background-color: #007BFF;
+    color: white;
+}
+tr:hover {
+    background-color: #f1f1f1;
+}
+
+
+@media (max-width: 475px) {
+  .nav-bar{
+    width: 100%;
+    height: auto;
+    display: block;
+  }
+  .container-nav{
+    height: auto;
+    width: auto;
+    text-align: center;
+    display: block;
+    padding: 5px;
+  }
+  .backhome-arrow{
+    width: auto;
+    height: auto;
+    display: flex;
+  }
+  .list-profile{
+    border: none;
+    height: auto;
+    width: auto;
+  }
+  .backhome-arrow img{
+    width: 30px;
+    height: 25px;
+  }
+  .list-profile img{
+    width: 30px;
+    height: 30px;
+  }
+  .transaction-container{
+    width: auto;
+    height: auto;
+    padding: 8px;
+    margin-left: 0px;
+
+  }
+  .table-list{
+    margin: 0;
+    width: auto;
+    height: auto;
+    font-size: 14.5px;
+    font-weight: 600;
+  }
+  
+}
+</style> 
+
+<script type="module">
+  import { initializeApp } from "https://www.gstatic.com/firebasejs/10.14.1/firebase-app.js";
+  import { getAuth, onAuthStateChanged } from "https://www.gstatic.com/firebasejs/10.14.1/firebase-auth.js";
+  import { getFirestore, collection, getDocs, query, where, orderBy,Timestamp,addDoc } 
+  from "https://www.gstatic.com/firebasejs/10.14.1/firebase-firestore.js";
+
+  // Firebase configuration
+  const firebaseConfig = {
+    apiKey: "AIzaSyC2UDesaxb8IqKRgS6GGcBhdBhfLNhSbxo",
+    authDomain: "leadson-bank-app.firebaseapp.com",
+    projectId: "leadson-bank-app",
+    storageBucket: "leadson-bank-app.appspot.com",
+    messagingSenderId: "1011064039007",
+    appId: "1:1011064039007:web:59acca967e30b39c1b9dea"
+  };
+
+  // Initialize Firebase
+  const app = initializeApp(firebaseConfig);
+  const auth = getAuth();
+  const db = getFirestore();
+
+ 
+  onAuthStateChanged(auth, (user) => {
+    if (user) {
+      const userUID = user.uid; 
+      fetchTransactions(userUID); 
+    } else {
+      console.log(userUID)
+      console.log("No user is signed in.");
+    }
+  });
+
+  
+function saveTransaction(userUID, type, amount, description) {
+  const transactionRef = collection(db, 'transactions');
+
+ 
+  addDoc(transactionRef, {
+    date: Timestamp.fromDate(new Date()), 
+    userId: userUID,
+    type: type, 
+    amount: amount, 
+    description: description || 'No description' 
+  })
+  .then(() => {
+    console.log("Transaction successfully saved!");
+  })
+  .catch((error) => {
+    console.error("Error saving transaction: ", error);
+  });
+}
+
+ // Function to fetch transactions from Firestore
+function fetchTransactions(userUID) {
+  const transactionsRef = collection(db, 'transactions'); 
+  const q = query(transactionsRef, 
+    where('userId', '==', userUID), 
+    orderBy('date', 'desc')); 
+
+  getDocs(q)
+    .then((querySnapshot) => {
+      const transactions = [];
+      querySnapshot.forEach((doc) => {
+        transactions.push(doc.data()); 
+      });
+
+      console.log(transactions); 
+      if (transactions.length === 0) {
+        console.log("No transactions found for this user."); 
+        return;
+      }
+
+      displayTransactions(transactions); 
+    })
+    .catch((error) => {
+      console.error('Error fetching transactions: ', error); 
+      alert('Error Fetching Transactions'); 
+    });
+}
+
+// Function to display transactions in the table
+function displayTransactions(transactions) {
+  const transactionList = document.getElementById('transaction-list');
+  transactionList.innerHTML = '';
+
+  transactions.forEach((transaction) => {
+    const row = document.createElement('tr');
+
+    // Date 
+    const dateCell = document.createElement('td');
+    if (transaction.date && transaction.date.seconds) {
+      dateCell.textContent = new Date(transaction.date.seconds * 1000).toLocaleDateString(); 
+    } else {
+      dateCell.textContent = 'Unknown date'; 
+    }
+    row.appendChild(dateCell);
+
+    // Type 
+    const typeCell = document.createElement('td');
+    typeCell.textContent = transaction.type || 'Unknown';
+    row.appendChild(typeCell);
+
+    // Amount 
+    const amountCell = document.createElement('td');
+    amountCell.textContent = transaction.amount ? `$${transaction.amount.toFixed(2)}` : '$0.00';
+    row.appendChild(amountCell);
+
+    // Description
+    const descriptionCell = document.createElement('td');
+    descriptionCell.textContent = transaction.description || 'No description';
+    row.appendChild(descriptionCell);
+
+    transactionList.appendChild(row);
+  });
+}
+ 
+// Show spinner function
+function showSpinner() {
+  document.getElementById('spinner').classList.remove('hidden');
+}
+
+// Hide spinner function
+function hideSpinner() {
+  document.getElementById('spinner').classList.add('hidden');
+}
+
+
+document.getElementById('backhomeArrow').addEventListener('click', (e) => {
+  e.preventDefault(); 
+  showSpinner();  
+  setTimeout(() => {
+    hideSpinner(); 
+    window.location.href = './signedIn-page.html';  
+  }, 3000);  
+});
+
+</script>
+</body>
+</html>
